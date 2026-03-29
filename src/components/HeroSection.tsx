@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
+import { ArrowDown, Download, Github, Linkedin, Mail } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
 
 const HeroSection = () => {
@@ -30,6 +30,16 @@ const HeroSection = () => {
           <p className="text-sm text-dim max-w-xl mx-auto mb-8">
             Building scalable, responsive web applications with clean code and intuitive interfaces.
           </p>
+
+          {/* Resume button */}
+          <a
+            href="/Faizan_Siddiki_Resume.pdf"
+            download
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-all duration-300 mb-8"
+          >
+            <Download size={18} />
+            Download Resume
+          </a>
 
           {/* Social links */}
           <div className="flex items-center justify-center gap-4 mb-12">
