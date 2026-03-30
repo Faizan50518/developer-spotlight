@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { ExternalLink, Github } from "lucide-react";
+import SectionLabel from "./SectionLabel";
 
 const projects = [
   {
@@ -19,19 +20,9 @@ const ProjectsSection = () => {
   return (
     <section id="projects" className="py-24 bg-muted/30">
       <div className="container mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <h2 className="font-mono text-primary text-sm mb-2 tracking-widest">// PROJECTS</h2>
-          <h3 className="text-3xl md:text-4xl font-bold text-foreground mb-12">
-            Featured <span className="text-gradient">Work</span>
-          </h3>
-        </motion.div>
+        <SectionLabel label="Projects" title="Featured" highlight="Work" />
 
-        <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto mt-12">
           {projects.map((project, i) => (
             <motion.div
               key={project.title}
@@ -40,6 +31,7 @@ const ProjectsSection = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.15 }}
               className="glass rounded-xl p-6 group hover:glow-border transition-all duration-500 flex flex-col"
+              whileHover={{ y: -6 }}
             >
               <div className="flex items-start justify-between mb-4">
                 <h4 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors">
@@ -47,18 +39,28 @@ const ProjectsSection = () => {
                 </h4>
                 <div className="flex gap-2">
                   {project.github && (
-                    <a href={project.github} target="_blank" rel="noopener noreferrer" className="text-dim hover:text-primary transition-colors">
+                    <motion.a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-dim hover:text-primary transition-colors"
+                      whileHover={{ scale: 1.2, rotate: 5 }}
+                    >
                       <Github size={18} />
-                    </a>
+                    </motion.a>
                   )}
                 </div>
               </div>
               <p className="text-sm text-muted-foreground mb-6 flex-1">{project.description}</p>
               <div className="flex flex-wrap gap-2">
                 {project.tech.map((t) => (
-                  <span key={t} className="font-mono text-[10px] text-primary bg-primary/10 px-2 py-1 rounded">
+                  <motion.span
+                    key={t}
+                    className="font-mono text-[10px] text-primary bg-primary/10 px-2 py-1 rounded"
+                    whileHover={{ scale: 1.1 }}
+                  >
                     {t}
-                  </span>
+                  </motion.span>
                 ))}
               </div>
             </motion.div>

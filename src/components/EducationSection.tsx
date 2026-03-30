@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { GraduationCap } from "lucide-react";
+import SectionLabel from "./SectionLabel";
 
 const education = [
   {
@@ -20,19 +21,9 @@ const EducationSection = () => {
   return (
     <section id="education" className="py-24">
       <div className="container mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <h2 className="font-mono text-primary text-sm mb-2 tracking-widest">// EDUCATION</h2>
-          <h3 className="text-3xl md:text-4xl font-bold text-foreground mb-12">
-            Academic <span className="text-gradient">Background</span>
-          </h3>
-        </motion.div>
+        <SectionLabel label="Education" title="Academic" highlight="Background" />
 
-        <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto mt-12">
           {education.map((edu, i) => (
             <motion.div
               key={i}
@@ -40,10 +31,13 @@ const EducationSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="glass rounded-xl p-6 hover:glow-border transition-all duration-500"
+              className="glass rounded-xl p-6 hover:glow-border transition-all duration-500 group"
+              whileHover={{ y: -4 }}
             >
-              <GraduationCap size={24} className="text-primary mb-3" />
-              <h4 className="text-lg font-semibold text-foreground mb-1">{edu.degree}</h4>
+              <motion.div whileHover={{ rotate: 10 }} className="inline-block">
+                <GraduationCap size={24} className="text-primary mb-3" />
+              </motion.div>
+              <h4 className="text-lg font-semibold text-foreground mb-1 group-hover:text-primary transition-colors">{edu.degree}</h4>
               <p className="text-sm text-muted-foreground mb-3">{edu.school}</p>
               <div className="flex items-center justify-between">
                 <span className="font-mono text-xs text-dim">{edu.period}</span>

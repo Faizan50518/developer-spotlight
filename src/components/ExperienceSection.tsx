@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Briefcase } from "lucide-react";
+import SectionLabel from "./SectionLabel";
 
 const experiences = [
   {
@@ -41,21 +42,18 @@ const ExperienceSection = () => {
   return (
     <section id="experience" className="py-24">
       <div className="container mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <h2 className="font-mono text-primary text-sm mb-2 tracking-widest">// EXPERIENCE</h2>
-          <h3 className="text-3xl md:text-4xl font-bold text-foreground mb-12">
-            Work <span className="text-gradient">History</span>
-          </h3>
-        </motion.div>
+        <SectionLabel label="Experience" title="Work" highlight="History" />
 
-        <div className="relative max-w-3xl mx-auto">
+        <div className="relative max-w-3xl mx-auto mt-12">
           {/* Timeline line */}
-          <div className="absolute left-4 md:left-6 top-0 bottom-0 w-px bg-border" />
+          <motion.div
+            className="absolute left-4 md:left-6 top-0 bottom-0 w-px bg-gradient-to-b from-primary via-primary/30 to-transparent"
+            initial={{ scaleY: 0 }}
+            whileInView={{ scaleY: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.5 }}
+            style={{ transformOrigin: "top" }}
+          />
 
           {experiences.map((exp, i) => (
             <motion.div
@@ -67,9 +65,19 @@ const ExperienceSection = () => {
               className="relative pl-12 md:pl-16 pb-12 last:pb-0"
             >
               {/* Dot */}
-              <div className="absolute left-2.5 md:left-4.5 top-1 w-3.5 h-3.5 rounded-full bg-primary border-2 border-background" />
+              <motion.div
+                className="absolute left-2.5 md:left-4.5 top-1 w-3.5 h-3.5 rounded-full bg-primary border-2 border-background"
+                initial={{ scale: 0 }}
+                whileInView={{ scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.3, delay: i * 0.15 + 0.2, type: "spring" }}
+                whileHover={{ scale: 1.5 }}
+              />
 
-              <div className="glass rounded-xl p-6 hover:glow-border transition-all duration-500">
+              <motion.div
+                className="glass rounded-xl p-6 hover:glow-border transition-all duration-500"
+                whileHover={{ x: 4 }}
+              >
                 <div className="flex flex-wrap items-start justify-between gap-2 mb-3">
                   <div>
                     <h4 className="text-lg font-semibold text-foreground">{exp.title}</h4>
@@ -84,13 +92,20 @@ const ExperienceSection = () => {
                 </div>
                 <ul className="space-y-2">
                   {exp.points.map((p, j) => (
-                    <li key={j} className="text-sm text-muted-foreground flex gap-2">
+                    <motion.li
+                      key={j}
+                      className="text-sm text-muted-foreground flex gap-2"
+                      initial={{ opacity: 0, x: -10 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.15 + j * 0.05 + 0.3 }}
+                    >
                       <span className="text-primary mt-1 shrink-0">▹</span>
                       {p}
-                    </li>
+                    </motion.li>
                   ))}
                 </ul>
-              </div>
+              </motion.div>
             </motion.div>
           ))}
         </div>
