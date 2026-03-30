@@ -51,8 +51,7 @@ const Navbar = () => {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          <img src={logo} alt="FS Logo" width={32} height={32} className="transition-transform duration-300 group-hover:rotate-12" />
-          <span className="text-lg font-bold text-gradient font-mono">&lt;FS /&gt;</span>
+          <img src={logo} alt="FS Logo" width={36} height={36} className="transition-transform duration-300 group-hover:rotate-12" />
         </motion.a>
 
         {/* Desktop */}
