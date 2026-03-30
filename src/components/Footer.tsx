@@ -9,8 +9,7 @@ const Footer = () => (
         {/* Brand */}
         <div>
           <div className="flex items-center gap-2 mb-4">
-            <img src={logo} alt="FS Logo" width={28} height={28} loading="lazy" />
-            <span className="text-lg font-bold text-gradient font-mono">&lt;FS /&gt;</span>
+            <img src={logo} alt="FS Logo" width={32} height={32} loading="lazy" />
           </div>
           <p className="text-sm text-muted-foreground leading-relaxed">
             React.js Developer focused on building beautiful, scalable web applications with modern technologies.
