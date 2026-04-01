@@ -1,47 +1,138 @@
-import { motion } from "framer-motion";
+import { useState, useEffect, useCallback } from "react";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 import { ArrowDown, Download, Github, Linkedin, Mail } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
 import logo from "@/assets/logo.png";
 
+const roles = ["React.js Developer", "MERN Stack Developer", "Frontend Engineer", "UI/UX Enthusiast"];
+
+const useTypingAnimation = (words: string[], typingSpeed = 80, deletingSpeed = 50, pauseTime = 2000) => {
+  const [text, setText] = useState("");
+  const [wordIndex, setWordIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const currentWord = words[wordIndex];
+    const timeout = setTimeout(() => {
+      if (!isDeleting) {
+        setText(currentWord.slice(0, text.length + 1));
+        if (text === currentWord) {
+          setTimeout(() => setIsDeleting(true), pauseTime);
+        }
+      } else {
+        setText(currentWord.slice(0, text.length - 1));
+        if (text === "") {
+          setIsDeleting(false);
+          setWordIndex((prev) => (prev + 1) % words.length);
+        }
+      }
+    }, isDeleting ? deletingSpeed : typingSpeed);
+
+    return () => clearTimeout(timeout);
+  }, [text, wordIndex, isDeleting, words, typingSpeed, deletingSpeed, pauseTime]);
+
+  return text;
+};
+
 const HeroSection = () => {
+  const typedText = useTypingAnimation(roles);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const spotlightX = useSpring(mouseX, { stiffness: 50, damping: 20 });
+  const spotlightY = useSpring(mouseY, { stiffness: 50, damping: 20 });
+
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    mouseX.set(e.clientX - rect.left);
+    mouseY.set(e.clientY - rect.top);
+  }, [mouseX, mouseY]);
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section
+      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      onMouseMove={handleMouseMove}
+    >
       {/* Background */}
       <div className="absolute inset-0">
-        <img src={heroBg} alt="" className="w-full h-full object-cover opacity-20" />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/80 to-background" />
+        <img src={heroBg} alt="" className="w-full h-full object-cover opacity-15" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/80 to-background" />
       </div>
 
-      {/* Floating particles */}
-      {[...Array(6)].map((_, i) => (
+      {/* Spotlight effect */}
+      <motion.div
+        className="absolute inset-0 pointer-events-none opacity-40"
+        style={{
+          background: `radial-gradient(600px circle at ${spotlightX.get()}px ${spotlightY.get()}px, hsl(var(--primary) / 0.08), transparent 40%)`,
+        }}
+      />
+
+      {/* Noise texture overlay */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{
+        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+      }} />
+
+      {/* Enhanced floating particles */}
+      {[...Array(15)].map((_, i) => (
         <motion.div
           key={i}
-          className="absolute w-1 h-1 rounded-full bg-primary/30"
+          className="absolute rounded-full"
           style={{
-            left: `${15 + i * 15}%`,
-            top: `${20 + (i % 3) * 20}%`,
+            left: `${5 + Math.random() * 90}%`,
+            top: `${5 + Math.random() * 90}%`,
+            width: `${2 + Math.random() * 4}px`,
+            height: `${2 + Math.random() * 4}px`,
+            background: `hsl(var(--primary) / ${0.1 + Math.random() * 0.3})`,
           }}
           animate={{
-            y: [0, -30, 0],
-            opacity: [0.2, 0.6, 0.2],
+            y: [0, -40 - Math.random() * 30, 0],
+            x: [0, Math.random() * 20 - 10, 0],
+            opacity: [0.1, 0.6, 0.1],
+            scale: [1, 1.5, 1],
           }}
           transition={{
-            duration: 3 + i * 0.5,
+            duration: 4 + Math.random() * 4,
             repeat: Infinity,
-            delay: i * 0.4,
+            delay: Math.random() * 3,
+            ease: "easeInOut",
           }}
         />
       ))}
 
+      {/* Animated gradient orbs */}
+      <motion.div
+        className="absolute w-[500px] h-[500px] rounded-full opacity-[0.04] blur-[100px]"
+        style={{ background: "hsl(var(--primary))", top: "10%", right: "-10%" }}
+        animate={{ x: [0, -50, 0], y: [0, 30, 0], scale: [1, 1.2, 1] }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        className="absolute w-[400px] h-[400px] rounded-full opacity-[0.03] blur-[80px]"
+        style={{ background: "hsl(var(--gradient-end))", bottom: "10%", left: "-5%" }}
+        animate={{ x: [0, 40, 0], y: [0, -40, 0], scale: [1.1, 0.9, 1.1] }}
+        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+      />
+
       <div className="relative z-10 container mx-auto px-6 text-center">
-        {/* Logo */}
+        {/* Logo with glow pulse */}
         <motion.div
           initial={{ opacity: 0, scale: 0.5, rotate: -20 }}
           animate={{ opacity: 1, scale: 1, rotate: 0 }}
           transition={{ duration: 0.8, type: "spring" }}
           className="mb-6"
         >
-          <img src={logo} alt="FS Logo" width={80} height={80} className="mx-auto drop-shadow-[0_0_20px_hsl(var(--primary)/0.4)]" />
+          <motion.img
+            src={logo}
+            alt="FS Logo"
+            width={80}
+            height={80}
+            className="mx-auto drop-shadow-[0_0_25px_hsl(var(--primary)/0.5)]"
+            animate={{ filter: [
+              "drop-shadow(0 0 20px hsl(175 80% 50% / 0.3))",
+              "drop-shadow(0 0 40px hsl(175 80% 50% / 0.6))",
+              "drop-shadow(0 0 20px hsl(175 80% 50% / 0.3))",
+            ]}}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+          />
         </motion.div>
 
         <motion.div
@@ -56,14 +147,24 @@ const HeroSection = () => {
             <span className="text-foreground">Faizan</span>{" "}
             <span className="text-gradient glow-text">Siddiki</span>
           </h1>
-          <motion.p
-            className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-3"
+
+          {/* Typing animation */}
+          <motion.div
+            className="h-8 md:h-10 flex items-center justify-center mb-3"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6 }}
           >
-            React.js Developer · MERN Stack Developer
-          </motion.p>
+            <span className="text-lg md:text-xl text-muted-foreground font-mono">
+              {typedText}
+            </span>
+            <motion.span
+              className="inline-block w-[2px] h-5 md:h-6 bg-primary ml-1"
+              animate={{ opacity: [1, 0, 1] }}
+              transition={{ duration: 0.8, repeat: Infinity }}
+            />
+          </motion.div>
+
           <motion.p
             className="text-sm text-dim max-w-xl mx-auto mb-8"
             initial={{ opacity: 0 }}

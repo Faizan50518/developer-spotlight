@@ -75,7 +75,7 @@ const ExperienceSection = () => {
               />
 
               <motion.div
-                className="glass rounded-xl p-6 hover:glow-border transition-all duration-500"
+                className="glass-card rounded-2xl p-6 transition-all duration-500"
                 whileHover={{ x: 4 }}
               >
                 <div className="flex flex-wrap items-start justify-between gap-2 mb-3">

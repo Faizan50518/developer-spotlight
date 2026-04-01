@@ -77,6 +77,14 @@ const Navbar = () => {
               </a>
             </li>
           ))}
+          <li>
+            <button
+              onClick={() => window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", ctrlKey: true }))}
+              className="flex items-center gap-1.5 text-xs text-dim hover:text-primary px-3 py-1.5 rounded-full border border-border hover:border-primary/30 transition-all duration-300 ml-2"
+            >
+              <kbd className="font-mono text-[10px]">⌘K</kbd>
+            </button>
+          </li>
         </ul>
 
         {/* Mobile toggle */}

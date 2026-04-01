@@ -30,7 +30,7 @@ const ProjectsSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.15 }}
-              className="glass rounded-xl p-6 group hover:glow-border transition-all duration-500 flex flex-col"
+              className="glass-card rounded-2xl p-6 group transition-all duration-500 flex flex-col"
               whileHover={{ y: -6 }}
             >
               <div className="flex items-start justify-between mb-4">
