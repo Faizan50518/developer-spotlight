@@ -31,7 +31,7 @@ const EducationSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="glass rounded-xl p-6 hover:glow-border transition-all duration-500 group"
+              className="glass-card rounded-2xl p-6 transition-all duration-500 group"
               whileHover={{ y: -4 }}
             >
               <motion.div whileHover={{ rotate: 10 }} className="inline-block">
