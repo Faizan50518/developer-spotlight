@@ -43,7 +43,7 @@ const SkillsSection = () => {
               whileHover={{ y: -4 }}
             >
               <div className="flex items-center gap-3 mb-5">
-                <span className="text-lg">{cat.icon}</span>
+                <cat.icon size={18} className="text-primary" />
                 <h4 className="font-mono text-primary text-xs uppercase tracking-[0.2em] relative">
                   {cat.title}
                   <motion.span
