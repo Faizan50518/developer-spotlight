@@ -63,8 +63,8 @@ const Footer = () => (
         <p className="text-xs text-dim">
           © 2026 Faizan Siddiki. All rights reserved.
         </p>
-        <p className="text-xs text-dim flex items-center gap-1">
-          Built with <Heart size={12} className="text-primary" /> using <span className="text-primary">React</span> & <span className="text-primary">TypeScript</span>
+        <p className="text-xs text-dim">
+          Designed & Developed by <span className="text-primary font-medium">Faizan Siddiki</span>
         </p>
       </div>
     </div>
