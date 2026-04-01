@@ -1,25 +1,26 @@
 import { motion } from "framer-motion";
+import { Layout, Server, RefreshCw, ShieldCheck } from "lucide-react";
 import SectionLabel from "./SectionLabel";
 
 const skillCategories = [
   {
     title: "Frontend",
-    icon: "⚛",
+    icon: Layout,
     skills: ["React.js", "Next.js", "TypeScript", "JavaScript (ES6+)", "HTML5", "CSS3", "Tailwind CSS", "Bootstrap", "Material UI"],
   },
   {
     title: "Backend",
-    icon: "⚙",
+    icon: Server,
     skills: ["Node.js", "Express.js", "MongoDB", "Mongoose", "REST APIs"],
   },
   {
     title: "State Management",
-    icon: "🔄",
+    icon: RefreshCw,
     skills: ["Redux Toolkit", "RTK Query", "Redux", "Context API"],
   },
   {
     title: "Auth & Tools",
-    icon: "🔐",
+    icon: ShieldCheck,
     skills: ["JWT", "bcrypt.js", "Axios", "Postman", "Git", "GitHub", "VS Code"],
   },
 ];
@@ -42,7 +43,7 @@ const SkillsSection = () => {
               whileHover={{ y: -4 }}
             >
               <div className="flex items-center gap-3 mb-5">
-                <span className="text-lg">{cat.icon}</span>
+                <cat.icon size={18} className="text-primary" />
                 <h4 className="font-mono text-primary text-xs uppercase tracking-[0.2em] relative">
                   {cat.title}
                   <motion.span
