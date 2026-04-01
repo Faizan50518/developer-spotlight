@@ -1,25 +1,26 @@
 import { motion } from "framer-motion";
+import { Layout, Server, RefreshCw, ShieldCheck } from "lucide-react";
 import SectionLabel from "./SectionLabel";
 
 const skillCategories = [
   {
     title: "Frontend",
-    icon: "⚛",
+    icon: Layout,
     skills: ["React.js", "Next.js", "TypeScript", "JavaScript (ES6+)", "HTML5", "CSS3", "Tailwind CSS", "Bootstrap", "Material UI"],
   },
   {
     title: "Backend",
-    icon: "⚙",
+    icon: Server,
     skills: ["Node.js", "Express.js", "MongoDB", "Mongoose", "REST APIs"],
   },
   {
     title: "State Management",
-    icon: "🔄",
+    icon: RefreshCw,
     skills: ["Redux Toolkit", "RTK Query", "Redux", "Context API"],
   },
   {
     title: "Auth & Tools",
-    icon: "🔐",
+    icon: ShieldCheck,
     skills: ["JWT", "bcrypt.js", "Axios", "Postman", "Git", "GitHub", "VS Code"],
   },
 ];
